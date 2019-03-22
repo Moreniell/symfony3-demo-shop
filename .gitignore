@@ -1,3 +1,6 @@
+###> jet-brains/phpstorm ###
+/.idea/
+###< jet-brains/phpstorm ###
 
 ###> symfony/framework-bundle ###
 /.env.local
