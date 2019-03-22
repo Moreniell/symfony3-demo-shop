@@ -18,4 +18,4 @@ framework:
         engines: ['twig']
 
     translator:
-        fallbacks: ['en']
+        fallbacks: ['%locale%']
