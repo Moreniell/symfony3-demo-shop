@@ -4,3 +4,15 @@
 index:
     path: /
     controller: 'App\Controller\HomeController::indexAction'
+
+order_index:
+    path: /order
+    controller: 'App\Controller\OrderController::indexAction'
+
+order_state_placed:
+    path: /order/state/placed
+    controller: 'App\Controller\OrderController::placedAction'
+
+order_cart:
+    path: /cart
+    controller: 'App\Controller\OrderController::cartAction'
