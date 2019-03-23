@@ -6,6 +6,29 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        {% block header %}
+            <header class="header">
+                <ul class="header__nav">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav__admin">
+                            <a href="{{ path('sonata_admin_dashboard') }}">Admin Panel</a>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_USER') %}
+                        <li class="nav__logout">
+                            <a href="{{ path('fos_user_security_logout') }}">Sign Out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav__register">
+                            <a href="{{ path('fos_user_registration_register') }}">Sign Up</a>
+                        </li>
+                        <li class="nav__login">
+                            <a href="{{ path('fos_user_security_login') }}">Sign In</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </header>
+        {% endblock %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
