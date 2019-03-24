@@ -33,12 +33,17 @@ services:
         class: App\Admin\CategoryAdmin
         arguments: [~, App\Entity\Category, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Category, group: Database }
+            - { name: sonata.admin, manager_type: orm, label: Categories, group: Database }
     admin.product:
         class: App\Admin\ProductAdmin
         arguments: [~, App\Entity\Product, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, label: Product, group: Database }
+            - { name: sonata.admin, manager_type: orm, label: Products, group: Database }
+    admin.order:
+        class: App\Admin\OrderAdmin
+        arguments: [~, App\Entity\Order, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, label: Orders, group: Database }
     app.redirect_after_registration_subscriber:
         class: App\EventListener\RedirectAfterRegistrationSubscriber
         autowire: true

@@ -36,7 +36,7 @@ class Product
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Order", mappedBy="products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Order", mappedBy="products", cascade={"persist"})
      */
     private $orders;
 

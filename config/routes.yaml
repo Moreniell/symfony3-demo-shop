@@ -16,3 +16,7 @@ order_state_placed:
 order_cart:
     path: /cart
     controller: 'App\Controller\OrderController::cartAction'
+
+api_get_product_by_id:
+    path: /api/v1/products/{id}
+    controller: 'App\Controller\ApiController::getProductByIdAction'

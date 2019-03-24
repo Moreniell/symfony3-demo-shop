@@ -3,5 +3,5 @@
 {% block title %}Cart{{ parent() }}{% endblock %}
 
 {% block body %}
-    Hello cart!
+    <cart action="{{ path('order_index') }}">Place Order</cart>
 {% endblock %}

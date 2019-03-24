@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * @ORM\Table(name="`order`")
  */
 class Order
 {
@@ -24,7 +25,7 @@ class Order
     private $address;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="orders")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="orders", cascade={"persist"})
      */
     private $products;
 
