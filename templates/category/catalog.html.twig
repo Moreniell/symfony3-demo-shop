@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Home Page{{ parent() }}{% endblock %}
+{% block title %}{{ category.name }}{{ parent() }}{% endblock %}
 
 {% block body %}
-    <h2>Home Page</h2>
+    <h2>Catalog "{{ category.name }}"</h2>
     {% if products|length > 0 %}
         <table border="1">
             <tr>
@@ -24,7 +24,7 @@
             {% endfor %}
         </table>
     {% else %}
-        No products available.
+        No products available in the category.
     {% endif %}
 {% endblock %}
 

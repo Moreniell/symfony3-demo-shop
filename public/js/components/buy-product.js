@@ -12,7 +12,7 @@ var buyProductButton = Vue.component('buy-product', {
     },
     created: function () {
         var productKey = this.$root.cart_items_prefix+this.pid;
-        var cartProduct = JSON.parse(window.localStorage.getItem(productKey));
+        var cartProduct = JSON.parse(getCookie(productKey));
         if (cartProduct !== undefined && cartProduct != null) {
             this.count = cartProduct.count;
         }
@@ -21,7 +21,7 @@ var buyProductButton = Vue.component('buy-product', {
         buyProduct: function () {
             this.count++;
             var productKey = this.$root.cart_items_prefix+this.pid;
-            window.localStorage.setItem(productKey, JSON.stringify({
+            setCookie(productKey, JSON.stringify({
                 pid: this.pid,
                 count: this.count
             }));

@@ -13,7 +13,7 @@ function getJson(url, callback) {
     xhr.send();
 }
 
-function setCookie(name,value,days) {
+function setCookie(name,value,days=30) {
     if (days) {
         var date = new Date();
         date.setTime(date.getTime()+(days*24*60*60*1000));
@@ -67,17 +67,14 @@ new Vue({
     },
     methods: {
         updateOrderedCount: function () {
+            var cookies = getAllCookies(true);
             var totalOrdered = 0;
-            for (var i = 0; i < window.localStorage.length; i++){
-                var key = window.localStorage.key(i);
+            for (var i = 0; i < cookies.length; i++){
+                var key = cookies[i][0];
                 if (key.startsWith(this.cart_items_prefix)) {
-                    var cartProduct = JSON.parse(window.localStorage.getItem(key));
+                    var cartProduct = JSON.parse(cookies[i][1]);
                     if (cartProduct !== undefined && cartProduct != null) {
-                        if (typeof cartProduct.count == "string") {
-                            totalOrdered += parseInt(cartProduct.count);
-                        } else {
-                            totalOrdered += cartProduct.count;
-                        }
+                        totalOrdered += cartProduct.count;
                     }
                 }
             }

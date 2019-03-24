@@ -13,7 +13,8 @@
                 <header class="header">
                     <ul class="header__nav">
                         <li class="nav__home"><a href="{{ path('index') }}">Home</a></li>
-                        <li class="nav__cart"><a href="{{ path('order_cart') }}">Cart${total_ordered > 0 ? ' ('+total_ordered+')' : ''}</a></li>
+                        <li class="nav__categories"><a href="{{ path('category_index') }}">Categories</a></li>
+                        <li class="nav__cart"><a href="{{ path('order_cart') }}" v-html="'Cart'+(total_ordered > 0 ? ' ('+total_ordered+')' : '')"></a></li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li class="nav__admin">
                                 <a href="{{ path('sonata_admin_dashboard') }}">Admin Panel</a>

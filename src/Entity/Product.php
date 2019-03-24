@@ -36,18 +36,12 @@ class Product
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Order", mappedBy="products", cascade={"persist"})
-     */
-    private $orders;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Attribute", mappedBy="product", orphanRemoval=true)
      */
     private $attributes;
 
     public function __construct()
     {
-        $this->orders = new ArrayCollection();
         $this->attributes = new ArrayCollection();
     }
 
@@ -88,34 +82,6 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Order[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->addProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-            $order->removeProduct($this);
-        }
 
         return $this;
     }

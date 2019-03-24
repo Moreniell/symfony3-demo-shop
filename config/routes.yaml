@@ -17,6 +17,14 @@ order_cart:
     path: /cart
     controller: 'App\Controller\OrderController::cartAction'
 
+category_index:
+    path: /categories
+    controller: 'App\Controller\CategoryController::indexAction'
+
+category_catalog:
+    path: /categories/{id}
+    controller: 'App\Controller\CategoryController::catalogAction'
+
 api_get_product_by_id:
     path: /api/v1/products/{id}
     controller: 'App\Controller\ApiController::getProductByIdAction'
