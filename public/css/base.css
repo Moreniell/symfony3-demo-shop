@@ -1,0 +1,52 @@
+.header__nav {
+    display: flex;
+    padding-left: 0;
+}
+
+.header__nav li {
+    display: block;
+    padding: 15px;
+}
+
+.header__nav li:first-child {
+    padding-left: 0;
+}
+
+.header__nav li:last-child {
+    padding-right: 0;
+}
+
+.cart-table {
+    position: relative;
+    display: inline-block;
+    min-width: 309px;
+    min-height: 25vh;
+}
+
+.preloader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.preloader.hidden {
+    display: none;
+}
+
+.preloader__status {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-image: url(http://opengraphicdesign.com/wp-content/uploads/2009/01/loader64.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.5;
+}

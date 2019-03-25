@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cart{{ parent() }}{% endblock %}
+
+{% block body %}
+    <cart action="{{ path('order_index') }}">Place Order</cart>
+{% endblock %}

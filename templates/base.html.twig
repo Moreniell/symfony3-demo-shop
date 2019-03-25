@@ -2,11 +2,47 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %} &mdash; DemoShop{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div id="app">
+            {% block header %}
+                <header class="header">
+                    <ul class="header__nav">
+                        <li class="nav__home"><a href="{{ path('index') }}">Home</a></li>
+                        <li class="nav__categories"><a href="{{ path('category_index') }}">Categories</a></li>
+                        <li class="nav__cart"><a href="{{ path('order_cart') }}" v-html="'Cart'+(total_ordered > 0 ? ' ('+total_ordered+')' : '')"></a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav__admin">
+                                <a href="{{ path('sonata_admin_dashboard') }}">Admin Panel</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_USER') %}
+                            <li class="nav__logout">
+                                <a href="{{ path('fos_user_security_logout') }}">Sign Out</a>
+                            </li>
+                        {% else %}
+                            <li class="nav__register">
+                                <a href="{{ path('fos_user_registration_register') }}">Sign Up</a>
+                            </li>
+                            <li class="nav__login">
+                                <a href="{{ path('fos_user_security_login') }}">Sign In</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <hr>
+                </header>
+            {% endblock %}
+            {% block body %}{% endblock %}
+        </div>
+        {% block javascripts %}
+            <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+            <script src="{{ asset('js/components/buy-product.js') }}"></script>
+            <script src="{{ asset('js/components/cart.js') }}"></script>
+            <script src="{{ asset('js/base.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

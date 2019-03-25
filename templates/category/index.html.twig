@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{{ parent() }}{% endblock %}
+
+{% block body %}
+    {% if categories|length > 0 %}
+        <table border="1">
+            <tr>
+                <th>Category</th>
+            </tr>
+            {% for _, category in categories %}
+                <tr><td><a href="{{ path('category_catalog', {id: category.id}) }}">{{ category.name }}</a></td></tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        No categories available.
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

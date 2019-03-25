@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.name }}{{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2>Catalog "{{ category.name }}"</h2>
+    {% if products|length > 0 %}
+        <table border="1">
+            <tr>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Act</th>
+            </tr>
+            {% for _, product in products %}
+                <tr>
+                    <td>{{ product.category.name }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }} UAH</td>
+                    <td>
+                        <buy-product pid="{{ product.id }}">Buy</buy-product>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        No products available in the category.
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
