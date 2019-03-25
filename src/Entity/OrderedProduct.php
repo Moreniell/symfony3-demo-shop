@@ -73,4 +73,12 @@ class OrderedProduct
 
         return $this;
     }
+
+    public function __toString()
+    {
+        $product = $this->getProduct();
+        $id = $product->getId();
+        $name = $product->getName();
+        return "$name $this->count pcs (#$id)";
+    }
 }

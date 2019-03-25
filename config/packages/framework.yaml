@@ -19,3 +19,6 @@ framework:
 
     translator:
         fallbacks: ['%locale%']
+
+    validation:
+        enabled: true

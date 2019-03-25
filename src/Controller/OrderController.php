@@ -8,8 +8,10 @@ use App\Entity\PlaceOrder;
 use App\Entity\Product;
 use App\Form\PlaceOrderType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +35,9 @@ class OrderController extends Controller
         }
         $task = new PlaceOrder();
         $form = $this->createFormBuilder($task)
+            ->add('customer_name', TextType::class)
+            ->add('phone_number', TelType::class)
+            ->add('email', EmailType::class)
             ->add('address', TextType::class)
             ->add('place_order', SubmitType::class, ['label' => 'Place Order'])
             ->getForm();
@@ -44,25 +49,35 @@ class OrderController extends Controller
             'place_order_form' => $form->createView()
         ];
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var PlaceOrder $placedOrder */
+            $placedOrder = $form->getData();
             $order = new Order();
-            $order->setAddress($form->getData()->getAddress());
-            foreach ($orderedGoods as $product) {
-                if ($product->count < 1) {
+            $order->setCustomerName($placedOrder->getCustomerName());
+            $order->setPhoneNumber(preg_replace("/[^0-9\+]/", "", $placedOrder->getPhoneNumber()));
+            $order->setEmail($placedOrder->getEmail());
+            $order->setAddress($placedOrder->getAddress());
+
+            $totalSum = 0;
+            foreach ($orderedGoods as $ordered) {
+                if ($ordered->count < 1) {
                     continue;
                 }
 
-                $p = $this->getDoctrine()->getRepository(Product::class)->find($product->pid);
-                if (!$p) {
+                $product = $this->getDoctrine()->getRepository(Product::class)->find($ordered->pid);
+                if (!$product) {
                     throw $this->createNotFoundException(
-                        'No product found for id '.$product->pid
+                        'No product found for id '.$ordered->pid
                     );
                 }
 
+                $totalSum += $product->getPrice();
+
                 $orderedProduct = new OrderedProduct();
-                $orderedProduct->setProduct($p);
-                $orderedProduct->setCount($product->count);
+                $orderedProduct->setProduct($product);
+                $orderedProduct->setCount($ordered->count);
                 $order->addOrderedProduct($orderedProduct);
             }
+            $order->setTotalSum($totalSum);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($order);
             $entityManager->flush();
