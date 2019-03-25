@@ -26,6 +26,7 @@ class CategoryController extends Controller
     }
 
     /**
+     * @param $id
      * @return Response
      * @throws \Twig\Error\Error
      */
@@ -42,7 +43,7 @@ class CategoryController extends Controller
         $templating = $this->container->get('templating');
         $html = $templating->render('category/catalog.html.twig', [
             'category' => $selectedCategory,
-            'products' => $productRepo->findBy(['category' => $selectedCategory])
+            'products' => $productRepo->findByCategoryId($id)
         ]);
         return new Response($html);
     }
